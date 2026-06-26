@@ -4798,8 +4798,9 @@ SwaggerBootstrapUi.prototype.createApiInfoInstance = function (path, mtype, apiI
     newfullPath += basePath;
   }
   // 此处追加springdoc-openapi的逻辑
-  // springdoc-openapi版本中对于接口不会再paths节点追加basePath,所以Knife4j自动化处理
-  if (that.springdoc) {
+  // springdoc-openapi(OpenAPI 3)版本中对于接口不会再paths节点追加basePath,所以Knife4j自动化处理
+  // OpenAPI 2(swag/springfox)的paths已含basePath全路径,无需追加UI部署前缀,否则会多出 /doc.html 的路径前缀(如 /swagger)
+  if (that.springdoc && !that.currentInstance.oas2()) {
     var pathname = window.location.pathname;
     var reg = new RegExp('(.*?)/doc\.html.*$', 'ig');
     var tempPath = '';
