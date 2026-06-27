@@ -120,13 +120,7 @@
   </a-row>
 </template>
 <script>
-/* import OnlineDocument from "@/views/api/OnlineDocument"; */
-import { defineAsyncComponent } from 'vue'
-
 export default {
-  components: {
-    'OnlineDocument': defineAsyncComponent(() => import('@/views/api/OnlineDocument.vue'))
-  },
   props: {
     instance: {
       type: Object,

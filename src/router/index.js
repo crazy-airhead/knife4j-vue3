@@ -1,5 +1,16 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import BasicLayout from '../layouts/BasicLayout.vue'
+// 以下视图组件在 BasicLayout 的 componentMap 中已被静态引入（用于 Tab 渲染），
+// 此处保持静态引入与之一致，避免 Vite 产生「动态/静态混用」的告警。
+// 由于这些组件本身已被打入主 chunk，改为静态引入不会增加产物体积。
+import Main from '@/views/index/Main.vue'
+import Authorize from '@/views/settings/Authorize.vue'
+import ApiInfo from '@/views/api/index.vue'
+import SwaggerModels from '@/views/settings/SwaggerModels.vue'
+import GlobalParameters from '@/views/settings/GlobalParameters.vue'
+import OfficelineDocument from '@/views/settings/OfficelineDocument.vue'
+import Settings from '@/views/settings/Settings.vue'
+import Othermarkdown from '@/views/othermarkdown/index.vue'
 
 export const routes = [{
   path: '/',
@@ -8,39 +19,39 @@ export const routes = [{
   redirect: '/home',
   children: [{
     path: '/home',
-    component: () => import('@/views/index/Main.vue')
+    component: Main
   }, {
     path: '/home/:i18n',
-    component: () => import('@/views/index/Main.vue')
+    component: Main
   }, {
     path: '/plus',
-    component: () => import('@/views/index/Main.vue')
+    component: Main
   }, {
     path: '/plus/:i18n',
-    component: () => import('@/views/index/Main.vue')
+    component: Main
   },
     {
       path: '/Authorize/:groupName',
-      component: () => import('@/views/settings/Authorize.vue')
+      component: Authorize
     },
     {
       path: '/:groupName/:controller/:summary',
-      component: () => import('@/views/api/index.vue')
+      component: ApiInfo
     }, {
       path: '/SwaggerModels/:groupName',
-      component: () => import('@/views/settings/SwaggerModels.vue')
+      component: SwaggerModels
     }, {
       path: '/documentManager/GlobalParameters-:groupName',
-      component: () => import('@/views/settings/GlobalParameters.vue')
+      component: GlobalParameters
     }, {
       path: '/documentManager/OfficelineDocument-:groupName',
-      component: () => import('@/views/settings/OfficelineDocument.vue')
+      component: OfficelineDocument
     }, {
       path: '/documentManager/Settings',
-      component: () => import('@/views/settings/Settings.vue')
+      component: Settings
     }, {
       path: '/:groupName-:mdid-omd/:id',
-      component: () => import('@/views/othermarkdown/index.vue')
+      component: Othermarkdown
     }
   ]
 },
